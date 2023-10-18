@@ -57,4 +57,14 @@ public class NoticeServiceImpl implements NoticeService {
 
         return noticeRepository.save(notice);
     }
+
+    @Override
+    public void delete(Long noticeId) {
+        Optional<Notice> findByNoticeId = noticeRepository.findById(noticeId);
+
+        Notice notice = findByNoticeId.orElseThrow(
+            () -> new GlobalException(ErrorCode.NOTICE_NOT_FOUND));
+
+        noticeRepository.delete(notice);
+    }
 }

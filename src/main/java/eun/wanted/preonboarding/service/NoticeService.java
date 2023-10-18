@@ -12,5 +12,6 @@ public interface NoticeService {
 
     Notice update(Long noticeId, NoticeDTO noticeDTO);
 
+    void delete(Long noticeId);
 
 }
