@@ -1,8 +1,8 @@
 package eun.wanted.preonboarding.controller;
 
 import eun.wanted.preonboarding.dto.NoticeDTO;
-import eun.wanted.preonboarding.dto.NoticeDetailDto;
-import eun.wanted.preonboarding.dto.NoticesDto;
+import eun.wanted.preonboarding.dto.NoticeDetailDTO;
+import eun.wanted.preonboarding.dto.NoticesDTO;
 import eun.wanted.preonboarding.dto.ResponseDTO;
 import eun.wanted.preonboarding.entity.Notice;
 import eun.wanted.preonboarding.service.NoticeService;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,8 +36,8 @@ public class NoticeController {
 
         List<Notice> notices = noticeService.findAll();
 
-        List<NoticesDto> dtos = notices.stream().map(NoticesDto::new).collect(Collectors.toList());
-        ResponseDTO<List<NoticesDto>> response = ResponseDTO.<List<NoticesDto>>builder().data(dtos)
+        List<NoticesDTO> dtos = notices.stream().map(NoticesDTO::new).collect(Collectors.toList());
+        ResponseDTO<List<NoticesDTO>> response = ResponseDTO.<List<NoticesDTO>>builder().data(dtos)
             .build();
         return ResponseEntity.ok(response);
     }
@@ -48,8 +47,8 @@ public class NoticeController {
     public ResponseEntity<Object> getNotice(@PathVariable(name = "id") Long noticeId) {
 
         Notice notice = noticeService.find(noticeId);
-        NoticeDetailDto dto = new NoticeDetailDto(notice);
-        ResponseDTO<NoticeDetailDto> response = ResponseDTO.<NoticeDetailDto>builder().data(dto)
+        NoticeDetailDTO dto = new NoticeDetailDTO(notice);
+        ResponseDTO<NoticeDetailDTO> response = ResponseDTO.<NoticeDetailDTO>builder().data(dto)
             .build();
         return ResponseEntity.ok(response);
     }
