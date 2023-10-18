@@ -37,4 +37,16 @@ public class NoticeController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<Object> updateNotice(@RequestBody NoticeDTO noticeDTO,
+        @PathVariable(name = "id") Long noticeId) {
+
+        Notice updateNotice = noticeService.update(noticeId, noticeDTO);
+
+        NoticeDTO dto = new NoticeDTO(updateNotice);
+        ResponseDTO<NoticeDTO> response = ResponseDTO.<NoticeDTO>builder().data(dto).build();
+        return ResponseEntity.ok(response);
+    }
+
 }
