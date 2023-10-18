@@ -1,6 +1,6 @@
 ## 요구사항 분석
-
-- ORM 사용하여 구현 : ORM인 `prisma` 사용
+- spring, java
+- ORM 사용하여 구현
 - RDBMS 사용 : `mysql` 사용
 - Git commit 메시지 컨벤션 : 유다시티
 
