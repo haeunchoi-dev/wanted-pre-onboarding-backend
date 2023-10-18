@@ -2,6 +2,7 @@ package eun.wanted.preonboarding.controller;
 
 import eun.wanted.preonboarding.dto.NoticeDTO;
 import eun.wanted.preonboarding.dto.NoticeDetailDto;
+import eun.wanted.preonboarding.dto.NoticesDto;
 import eun.wanted.preonboarding.dto.ResponseDTO;
 import eun.wanted.preonboarding.entity.Notice;
 import eun.wanted.preonboarding.service.NoticeService;
@@ -32,15 +33,24 @@ public class NoticeController {
 
     @GetMapping("/all")
     @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<Object> getAllNotice(
-        @RequestParam(value = "position", required = false) String position,
-        @RequestParam(value = "tech", required = false) String tech,
-        @RequestParam(value = "detail", required = false) String detail) {
+    public ResponseEntity<Object> getAllNotice() {
 
         List<Notice> notices = noticeService.findAll();
 
-        List<NoticeDetailDto> dtos = notices.stream().map(NoticeDetailDto::new).collect(Collectors.toList());
-        ResponseDTO<List<NoticeDetailDto>> response = ResponseDTO.<List<NoticeDetailDto>>builder().data(dtos).build();
+        List<NoticesDto> dtos = notices.stream().map(NoticesDto::new).collect(Collectors.toList());
+        ResponseDTO<List<NoticesDto>> response = ResponseDTO.<List<NoticesDto>>builder().data(dtos)
+            .build();
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<Object> getNotice(@PathVariable(name = "id") Long noticeId) {
+
+        Notice notice = noticeService.find(noticeId);
+        NoticeDetailDto dto = new NoticeDetailDto(notice);
+        ResponseDTO<NoticeDetailDto> response = ResponseDTO.<NoticeDetailDto>builder().data(dto)
+            .build();
         return ResponseEntity.ok(response);
     }
 

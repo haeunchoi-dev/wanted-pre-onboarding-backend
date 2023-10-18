@@ -8,6 +8,8 @@ public interface NoticeService {
 
     List<Notice> findAll();
 
+    Notice find(Long noticeId);
+
     Notice create(NoticeDTO noticeDTO);
 
     Notice update(Long noticeId, NoticeDTO noticeDTO);

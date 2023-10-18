@@ -26,8 +26,17 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public List<Notice> findAll() {
-        List<Notice> notices = noticeRepository.findAll();
         return noticeRepository.findAll();
+    }
+
+    @Override
+    public Notice find(Long noticeId) {
+        Optional<Notice> findByNoticeId = noticeRepository.findById(noticeId);
+
+        Notice notice = findByNoticeId.orElseThrow(
+            () -> new GlobalException(ErrorCode.NOTICE_NOT_FOUND));
+
+        return notice;
     }
 
     @Override
@@ -45,10 +54,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public Notice update(Long noticeId, NoticeDTO noticeDTO) {
-        Optional<Notice> findByNoticeId = noticeRepository.findById(noticeId);
-
-        Notice notice = findByNoticeId.orElseThrow(
-            () -> new GlobalException(ErrorCode.NOTICE_NOT_FOUND));
+        Notice notice = find(noticeId);
 
         notice.setPosition(noticeDTO.getPosition());
         notice.setReward(noticeDTO.getReward());
@@ -60,10 +66,7 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     public void delete(Long noticeId) {
-        Optional<Notice> findByNoticeId = noticeRepository.findById(noticeId);
-
-        Notice notice = findByNoticeId.orElseThrow(
-            () -> new GlobalException(ErrorCode.NOTICE_NOT_FOUND));
+        Notice notice = find(noticeId);
 
         noticeRepository.delete(notice);
     }
