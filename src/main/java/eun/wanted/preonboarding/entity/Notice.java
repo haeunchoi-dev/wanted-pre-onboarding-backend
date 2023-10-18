@@ -40,6 +40,7 @@ public class Notice extends DateField {
 
     @ManyToOne
     @JoinColumn(name = "company_id")
+    @Setter
     private Company company;
 
     public Notice(String position, int reward, String tech, String detail, Company company) {

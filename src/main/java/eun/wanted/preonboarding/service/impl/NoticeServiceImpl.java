@@ -8,6 +8,7 @@ import eun.wanted.preonboarding.exception.GlobalException;
 import eun.wanted.preonboarding.repository.CompanyRepository;
 import eun.wanted.preonboarding.repository.NoticeRepository;
 import eun.wanted.preonboarding.service.NoticeService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,12 @@ public class NoticeServiceImpl implements NoticeService {
         CompanyRepository companyRepository) {
         this.noticeRepository = noticeRepository;
         this.companyRepository = companyRepository;
+    }
+
+    @Override
+    public List<Notice> findAll() {
+        List<Notice> notices = noticeRepository.findAll();
+        return noticeRepository.findAll();
     }
 
     @Override

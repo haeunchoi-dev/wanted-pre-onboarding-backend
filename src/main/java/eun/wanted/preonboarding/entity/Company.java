@@ -2,6 +2,7 @@ package eun.wanted.preonboarding.entity;
 
 import eun.wanted.preonboarding.entity.common.DateField;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,6 +35,6 @@ public class Company extends DateField {
     @JoinColumn(name = "region_id")
     private Region region;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<Notice> notices = new ArrayList<>();
 }

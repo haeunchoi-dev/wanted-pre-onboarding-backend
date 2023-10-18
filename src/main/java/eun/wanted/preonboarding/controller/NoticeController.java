@@ -1,6 +1,7 @@
 package eun.wanted.preonboarding.controller;
 
 import eun.wanted.preonboarding.dto.NoticeDTO;
+import eun.wanted.preonboarding.dto.NoticeDetailDto;
 import eun.wanted.preonboarding.dto.ResponseDTO;
 import eun.wanted.preonboarding.entity.Notice;
 import eun.wanted.preonboarding.service.NoticeService;
@@ -26,6 +27,20 @@ public class NoticeController {
 
     public NoticeController(NoticeService noticeService) {
         this.noticeService = noticeService;
+    }
+
+    @GetMapping("/all")
+    @ResponseStatus(value = HttpStatus.OK)
+    public ResponseEntity<Object> getAllNotice(
+        @RequestParam(value = "position", required = false) String position,
+        @RequestParam(value = "tech", required = false) String tech,
+        @RequestParam(value = "detail", required = false) String detail) {
+
+        List<Notice> notices = noticeService.findAll();
+
+        List<NoticeDetailDto> dtos = notices.stream().map(NoticeDetailDto::new).collect(Collectors.toList());
+        ResponseDTO<List<NoticeDetailDto>> response = ResponseDTO.<List<NoticeDetailDto>>builder().data(dtos).build();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("")
